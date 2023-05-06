@@ -86,7 +86,6 @@
 		    </div>
 		    <div style="height:10px;"></div>
 		    <div>※특수기호(,)는 사용할 수 없습니다.</div>
-		    
 	    </div>
 	</div>
 </body>
