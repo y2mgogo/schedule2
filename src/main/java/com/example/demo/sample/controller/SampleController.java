@@ -33,57 +33,9 @@ public class SampleController {
 	
 	//조회
 	@RequestMapping(value="/", method = RequestMethod.GET)
-	public ModelAndView index() {
+	public String index() {
 		System.out.println("인덱스 페이지 호출");
-		
-		ModelAndView mav = new ModelAndView();
-		List<Map<String, Object>> result = new ArrayList<>();
-		Map<String, Object> resultMap = new HashMap<>();
-		
-		mav.setViewName("index");
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-		
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
-		
-		et.begin();
-		
-		try{
-           // MemberInfo 리스트 조회 방법
-           // JPQL을 이용함.
-           // 쿼리를 보면, 우리가 알고있는 일반적인 쿼리가 아닌 것을 알 수 있음.
-           // 멤버인포를 다 가져오라는 뜻.
-           List<Schedule> scheduleList = (List<Schedule>) em.createQuery("select m from Schedule as m", Schedule.class).getResultList();
-           //int cnt = 0;
-           for (Schedule schedule : scheduleList) {
-               System.out.println("아이디 : " + schedule.getId() + " / 제목 : " + schedule.getTitle());
-               resultMap.put("id", schedule.getId());
-               resultMap.put("title", schedule.getTitle());
-               resultMap.put("contents", schedule.getContents());
-               resultMap.put("reg_date", schedule.getReg_date());
-               resultMap.put("schedule_date", schedule.getSchedule_date());
-               result.add(resultMap);
-               resultMap = new HashMap<>();
-           }
-           // 정상작동 시, 커밋
-           et.commit();
-
-       // 오류 발생 시, 롤백
-       } catch(Exception e){
-    	   e.printStackTrace();
-           et.rollback();
-       // 성공 / 오류 상관없이 마지막에 거치는 영역
-       } finally {
-           // EntityManager를 닫아준다.
-           em.close();
-       }
-		emf.close();
-		
-		//List<Schedule> result = scheduleRepository.findAll();
-		System.out.println("########## result: " + result);
-		mav.addObject("list", result);
-		return mav;
+		return "index";
 	}
 	//저장, 수정
 	@RequestMapping(value="/schedule/save.do", method = RequestMethod.POST)

@@ -84,8 +84,6 @@
 			    <button id="save">저장</button>
 			    <button id="delete">삭제</button>
 		    </div>
-		    <div style="height:10px;"></div>
-		    <div>※특수기호(,)는 사용할 수 없습니다.</div>
 	    </div>
 	</div>
 </body>
@@ -93,31 +91,9 @@
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="./src/calendar-gc.js"></script>
 <script>
-//var clickDate = "";
-var list = "${list}";
-console.log("list ",list);
-list = list.replace("[{","");
-list = list.replace("}]","");
-
-var listArray = list.split("}, {");
-
-//string데이터 배열과 오브젝트를 이용하여 리스트(오브젝트)로 변경
-var listArrayFinal = [];
-var listObj = {};
-
-for( var i = 0 ; i < listArray.length ; i++ ) {
-	listObj.reg_date = 		(listArray[i].split(", ")[0]).split("=")[1];
-	listObj.contents = 		(listArray[i].split(", ")[1]).split("=")[1];
-	listObj.id = 			(listArray[i].split(", ")[2]).split("=")[1];
-	listObj.title = 		(listArray[i].split(", ")[3]).split("=")[1];
-	listObj.schedule_date = (listArray[i].split(", ")[4]).split("=")[1];
-	listArrayFinal.push(listObj);
-	listObj = {};
-}
-console.log("listArrayFinal: ", listArrayFinal);
+//초기리스트call
+callScheduleList();
   $(function (e) {
-	
-	//init();
     var calendar = $("#calendar").calendarGC({
       dayBegin: 0,
       prevIcon: '&#x3c;',
@@ -155,7 +131,6 @@ console.log("listArrayFinal: ", listArrayFinal);
         $("body").append('<div class="backon"></div>');
       }
     });
-    init();
     
     $("body").on("click", function(event) { 
         if(event.target.className == 'close' || event.target.className == 'backon'){
@@ -303,22 +278,6 @@ console.log("listArrayFinal: ", listArrayFinal);
 	}); // end ajax
   }
   
-  function init() {
-  	//setSchedule();
-	    //초기 스케줄 셋
-	    $("td.current-month").each(function(index, item) {
-			 //console.log($(item).find("span").text());
-			 $(listArrayFinal).each(function(id, obj) {
-				 if ( $(item).find("input[type=hidden]").val() == obj.schedule_date ) {
-					 console.log("Y");
-					 $(item).append('<div class="gc-evnet badge bg-primary" onclick="editSchedule(\'' + obj.title + 
-							 '\', \''+ obj.contents + '\', \'' + obj.schedule_date.substr(6,2).replace("0","") + '\', \'' + 
-							 obj.id +'\', \'' + obj.schedule_date + '\')">' + 
-							 obj.title + '</div>');
-				 }
-			 })
-		});
-  }
   function setSchedule(dataList) {
 
 	  $("td.current-month").each(function(index, item) {
