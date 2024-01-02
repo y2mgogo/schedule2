@@ -112,9 +112,9 @@ callScheduleList();
       onclickDate: function (e, data) {
         //console.log(e, data.date);
         var clickDate = data.datejs;
-        var year 	= clickDate.getFullYear();
-        var month 	= clickDate.getMonth()+1 >= 10 ? clickDate.getMonth()+1 : '0' + (clickDate.getMonth()+1);
-        var date 	= clickDate.getDate() >= 10 ? clickDate.getDate() : '0' + clickDate.getDate();
+        var year 	= clickDate.getFullYear().toString();
+        var month 	= clickDate.getMonth()+1 >= 10 ? (clickDate.getMonth()+1).toString() : '0' + (clickDate.getMonth()+1);
+        var date 	= clickDate.getDate() >= 10 ? (clickDate.getDate()).toString() : '0' + clickDate.getDate();
         console.log("date: ", year+month+date);
         $("#clickDate").val(clickDate.getDate().toString());
         $("#scheduleDate").val(year+month+date);
