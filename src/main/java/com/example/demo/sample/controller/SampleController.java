@@ -28,8 +28,10 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class SampleController {
 	
-	@Autowired
-	ScheduleRepository scheduleRepository;
+	private final ScheduleRepository scheduleRepository2;
+	
+	//@Autowired
+	//ScheduleRepository scheduleRepository;
 	
 	//조회
 	@RequestMapping(value="/", method = RequestMethod.GET)
@@ -65,18 +67,18 @@ public class SampleController {
         			.contents(content)
         			.schedule_date(schedule_date)
         			.reg_date(reg_date).build();
-        	Schedule result = scheduleRepository.save(schedule);
+        	Schedule result = scheduleRepository2.save(schedule);
         	if ( !result.equals(null) ) {
-        		scheduleList = scheduleRepository.findAll();
+        		scheduleList = scheduleRepository2.findAll();
         	}
         	map.put("result", result);
      
         } else {
 
-        	int updateResult = scheduleRepository.updateTitle(title, content, Integer.parseInt(schedule_id));
+        	int updateResult = scheduleRepository2.updateTitle(title, content, Integer.parseInt(schedule_id));
         	
         	if ( updateResult > 0 ) {
-        		scheduleList = scheduleRepository.findAll();
+        		scheduleList = scheduleRepository2.findAll();
         	}
         	map.put("result", updateResult);
         }
@@ -98,9 +100,9 @@ public class SampleController {
 		HashMap<String, Object> map = new HashMap<>();
 		List<Schedule> scheduleList = new ArrayList<>();
 		try {
-			int result = scheduleRepository.deleteTitle(Integer.parseInt(schedule_id));
+			int result = scheduleRepository2.deleteTitle(Integer.parseInt(schedule_id));
 			if ( result > 0 ) {
-				scheduleList = scheduleRepository.findAll();
+				scheduleList = scheduleRepository2.findAll();
 			}
 			map.put("result", result);
 			map.put("scheduleList", scheduleList);
@@ -121,7 +123,7 @@ public class SampleController {
 		HashMap<String, Object> map = new HashMap<>();
 		List<Schedule> scheduleList = new ArrayList<>();
 		try {
-			scheduleList = scheduleRepository.findAll();
+			scheduleList = scheduleRepository2.findAll();
 			map.put("scheduleList", scheduleList);
 		} catch (Exception e) {
 			e.printStackTrace();
