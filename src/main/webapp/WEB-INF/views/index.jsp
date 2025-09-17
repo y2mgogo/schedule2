@@ -302,7 +302,7 @@ callScheduleList();
 	  $("#content").val(content);
 	  //미리 저장된 데이터이므로 예전데이터에 데이터 입력
 	  $("#preTitle").val($("#title").val());
-	  $("#preContents").val($("#contents").val());
+	  $("#preContents").val($("#content").val());
 	  $("#schedule_id").val(id);
 	  $("#clickDate").val(date);
 	  $("#scheduleDate").val(realDate);
