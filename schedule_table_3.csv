@@ -1,0 +1,6 @@
+Field,Type,Null,Key,Default,Extra
+id,int,NO,PRI,NULL,auto_increment
+contents,varchar(200),YES,,NULL,
+reg_date,varchar(8),YES,,NULL,
+schedule_date,varchar(8),YES,,NULL,
+title,varchar(20),YES,,NULL,
